@@ -1,0 +1,68 @@
+Metadata-Version: 1.0
+Name: require
+Version: 0.1.1
+Summary: A framework for module definitions
+Home-page: http://dev.open-desk.net/projects/require
+Author: Dustin Frisch
+Author-email: fooker@lab.sh
+License: GNU GPLv3
+Description: require is a framework for module definitions.
+        
+        
+        == Overview ==
+        It allows to publish dependencies. A function can be decorated to require
+        dependencies by its name.
+        
+        
+        == Usage ==
+        A requirement must be exported using the @export(...) decorator. The decorated
+        function will be called on the first time it is required and the result is
+        cached for later use. It's also possible to decorated a class or anything else
+        which is callable.
+        
+        To require a dependency the @require(...) decorator can be used. This decorator
+        expects a mapping between parameter names and dependencies. If the decorated
+        function is called, the requirements are resolved and the returned values are
+        passed to the decorated function. The parameter name used to pass the resolved
+        requirements are the same names as used to specify the requirements.
+        
+        It is possible to extend and manipulate an export using the @extend(...)
+        decorator. After calling the exported function, the return value is passed to
+        all defined extends for this dependency. The extend function can manipulate the
+        object or replace it with another one.
+        
+        
+        == Example ==
+        file: example/foo.py
+        
+        from require import export
+        
+        @export()
+        def my_export():
+          # This function will be called on first requirement
+          return 'exported object'
+        
+        
+        file: example/bar.py
+        
+        from require import extend
+        
+        @extend('example.foo:my_export')
+        def extend_my_export(my_export):
+          # The passed parameter is the result of the required function
+          # If the extend function returns a new value, the export is replaced by it
+          return 'extended and ' + my_export
+        
+        
+        file: example/baz.py
+        
+        from require import require
+        
+        @require(my_fancy_export = 'example.foo:my_export')
+        def my_user(my_fancy_export):
+          # Parameter 'my_fancy_export' must match the name in the decorator
+          # This will print 'extended and exported object'
+          print(my_fancy_export)
+        
+Keywords: require module
+Platform: UNKNOWN
