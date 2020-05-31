@@ -20,7 +20,7 @@ def price(company_name):
 
     secondpart = ''
     for link in soup.find_all('a'):
-        if link.text==company_name:
+        if link.text.lower()==company_name.lower():
             secondpart=link['href']
             break
 
