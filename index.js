@@ -48,7 +48,7 @@ searchInput.addEventListener("keyup",function(){
 
 
 /*********************Talking to server Side******************************* */
-var server = "http://127.0.0.1:5000";
+var server = "https://manojeet24.pythonanywhere.com";
 
 	function post(appdir,send_msg, op_num,received_msg){
 		$('#message').html(send_msg);
