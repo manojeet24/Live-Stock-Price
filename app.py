@@ -1,16 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template,request, jsonify
 import json
 import core
-
 app = Flask(__name__)
-@app.route('/')
-def home():
-    return "Hello"
+
+@app.route("/")
+def index():
+    return render_template('index.html')
 
 @app.route('/price', methods=['POST'])
-
 def get_price():
-    print("Getting Price")
+    #print("Getting Price")
     rf=request.form
     # print(rf)
     for key in rf.keys():
@@ -26,3 +25,6 @@ def get_price():
     resp = jsonify(resp_dic)
     resp.headers['Access-Control-Allow-Origin']='*'
     return resp
+
+if __name__ == "__main__":
+    app.run(debug=True)

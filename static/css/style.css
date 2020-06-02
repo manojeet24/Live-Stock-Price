@@ -1,0 +1,113 @@
+.button_price{
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+    position: relative;
+    left: 40%;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    transition: border-radius 2s,transform 1s ease-in-out; 
+}
+/* .button_price:hover {
+    background-color: #4CAF50;
+    color: white;
+} */
+
+.loading{
+    outline: none;
+    border: none;
+    border-radius: 100px;
+    padding: 16px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    color: white;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: rgb(93, 236, 21);
+    color: black; 
+    border: 2px solid rgb(93, 236, 21);
+    position: relative;
+    left: 40%;
+    /* height: 20%; */
+    -webkit-transform: scale(0.7);
+    transform: scale(0.7);
+    transition: border-radius 2s,transform 0.5s ease-in-out,background-color 4s;
+}
+
+input[type=text] {
+    width: 60%;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    outline: none;
+    /* font-family: 'Fredoka One', cursive; */
+   
+}
+input[id="n1"]{
+    /* background-image: url('search.png'); */
+    background-position: 0px 5px; 
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: 0.5s;	
+    transition: width 0.4s ease-in-out;
+}
+input[id="n1"]:focus {  
+    border: 3px solid #4CAF50;
+    width: 100%;
+}
+#n3{
+    font-size: 50px;
+    height: 65px;
+    width: 100%;
+    border:0px;
+}
+
+.suggestions > div{
+    font-size: 18px;
+    /* font-family: 'Fredoka One', cursive; */
+}
+.suggestions > div:hover{
+    background-color: #4CAF50;
+    cursor: pointer;
+}
+.container{
+    width: 750px;
+    height: 200px;
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+p[id="header"]{
+    /* color: royalblue; */
+    position: relative;
+    left: 20%;
+    font-size: 70px;
+    font-family: 'Fredericka the Great', cursive;
+}
+p[id="Success"]{
+    color: #4CAF50;
+}
+p[id="Error"]{
+    color:red;
+}

@@ -5,38 +5,38 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 def price(company_name):
-    #taking input
-    # company_name = input('Enter Company Name: ')
+  
     if company_name == '':
         err = 'Enter Company Name!!!'
         return err
-    
+    company_name = company_name[:-1]
     ticker = company_name[:1]
-    #Base URL to Stock URL
-    url='https://economictimes.indiatimes.com/markets/stocks/stock-quotes?ticker=' + ticker
+    url = 'https://www.tickertape.in/stocks?filter=' + ticker
+    first_part = 'https://www.tickertape.in'
+
     r = requests.get(url)
-    content = r.content
-    soup = bs(content, "html.parser")
+    content = r.text
+    soup = bs(content,'html.parser')
 
     secondpart = ''
     for link in soup.find_all('a'):
-        if link.text.lower()==company_name.lower():
-            secondpart=link['href']
-            break
+            if link.text == company_name:
+                secondpart=link['href']
+                break
 
     if secondpart == '':
-        err = 'Check Company Name'
-        return err
+            err = 'Check Company Name'
+            return err
 
-    firstpart="http://economictimes.indiatimes.com"
-    url = firstpart+secondpart
-    #print(url)
+    url = first_part + secondpart
 
     #finding price from Stock URL
+
     r = requests.get(url)
     content = r.content
+
     soup = bs(content,"html.parser")
-    element = soup.find("div",{"class":"value","id":"nseTradeprice"})
+    element = soup.find("span",{"class":"jsx-2945882850 current-price text-dark text-24"})
 
     if(element):
         res = element.text
@@ -45,4 +45,4 @@ def price(company_name):
         err = 'Check Company Name'
         return err
 
-#print(price('IOL Chemicals and Pharmaceuticals Ltd.'))
+#print(price('Asian Paints Ltd.'))
