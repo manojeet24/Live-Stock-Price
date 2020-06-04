@@ -25,7 +25,7 @@ To run the file simply type `flask run` in the terminal.
 **Front End**  
 Building a simple Interactive `HTML` page using `CSS` and `JavaScript`. It takes *Company Name* as an input and shows the **Live Price**
 as output on *Click* of a Button. The Page also provides *Auto Suggestions* of *Company Names*. On *Click* of the Button, it sends 
-**POST** request using `Jquery` and `AJAX`.  
+**POST** request using `Jquery` and `AJAX`.  Using `JavaScript`, **POST** request is sent in every minute, updating the **Live Price**.
 
 Make sure that the `Flask app` is running. Open your Browser and go to `http://127.0.0.1:5000/` to see the `home page`
 
