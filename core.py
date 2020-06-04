@@ -1,48 +1,55 @@
 #Takes Company name as input and returns it's Last Traded Price
 
-import sys
+import sys,json
 import requests
 from bs4 import BeautifulSoup as bs
 
 def price(company_name):
   
-    if company_name == '':
-        err = 'Enter Company Name!!!'
-        return err
-    company_name = company_name[:-1]
-    ticker = company_name[:1]
-    url = 'https://www.tickertape.in/stocks?filter=' + ticker
-    first_part = 'https://www.tickertape.in'
+    if len(company_name) == 0:
+        return 'Enter Company Name!!!'
 
+    ticker = company_name[:1]
+    
+    #Removing last character(.) from "Ltd."
+    company_name = company_name[:-1]
+    url = 'https://www.tickertape.in/stocks?filter=' + ticker
+
+    #parsing the HTML to find the SYMBOL of company
     r = requests.get(url)
     content = r.text
     soup = bs(content,'html.parser')
 
     secondpart = ''
     for link in soup.find_all('a'):
-            if link.text == company_name:
+            if link.text.lower() == company_name.lower():
                 secondpart=link['href']
                 break
 
     if secondpart == '':
-            err = 'Check Company Name'
-            return err
+            return 'Check Company Name'
 
-    url = first_part + secondpart
+    #TICKER = SYMBOL of Stock 
+    TICKER = ""
 
-    #finding price from Stock URL
-
-    r = requests.get(url)
-    content = r.content
-
-    soup = bs(content,"html.parser")
-    element = soup.find("span",{"class":"jsx-2945882850 current-price text-dark text-24"})
-
-    if(element):
-        res = element.text
-        return '₹ ' + res
+    for i in range( len(secondpart) - 1, -1, -1) :
+        if secondpart[i] != '-':
+            TICKER=secondpart[i]+TICKER
+        else:
+            break
+    
+    if len(TICKER)<=1:
+        return 'Check Company Name'
     else:
-        err = 'Check Company Name'
-        return err
+        url = "https://api.tickertape.in/stocks/charts/intra/"
+        url = url + TICKER
+        r = requests.get(url)
+        content = r.text
+        obj = json.loads(content)
+        data = obj['data']
+        data = data[0]['points']
+        data = data[-1]
+        price = data['lp'] 
+        return ('₹ ' + str(price))
 
-#print(price('Asian Paints Ltd.'))
+#print(price('Reliance Industries Ltd.'))
