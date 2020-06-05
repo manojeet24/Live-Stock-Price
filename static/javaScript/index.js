@@ -19,7 +19,7 @@ searchInput.addEventListener("keyup",function(){
         return company.toLowerCase().startsWith(input.toLowerCase());
     });
 
-    console.log(suggestions.length);
+    // console.log(suggestions.entries());
     sz = Math.min(8,suggestions.length);
 
     for(i=0 ; i<sz ; i++){
@@ -33,7 +33,11 @@ searchInput.addEventListener("keyup",function(){
         //When suggestion is clicked
         div.addEventListener("click", function(e) {
             /*insert the value for the autocomplete text field:*/
-            searchInput.value = this.getElementsByTagName("input")[0].value;
+			searchInput.value = this.getElementsByTagName("input")[0].value;
+			//suggestions.clear()
+			suggestions = stocks.filter(function(company){  
+				return company.toLowerCase().startsWith(searchInput.value.toLowerCase());
+			});
             /*close the list of autocompleted values,
             (or any other open lists of autocompleted values:*/
             suggestionsPanel.innerHTML = '';
@@ -89,7 +93,7 @@ searchInput.addEventListener("keyup",function(){
             }
 			
 			$( "#price" ).click(function() {
-				console.log("HELLLLLO")
+				console.log("Price Clicked")
 				var appdir='/price';
 				var send_msg = "<p>Sending Company</p>";
 				var received_msg = "<p>Result returned</p>";
@@ -98,6 +102,7 @@ searchInput.addEventListener("keyup",function(){
 
 				//Auto Refresh:
 				var refresh = setInterval(function(){	
+					console.log('request')
 					update_var();
 					var companyName = op_num['company_name'];
 					
@@ -108,7 +113,7 @@ searchInput.addEventListener("keyup",function(){
 					}
 					post(appdir,send_msg,op_num,received_msg);
 
-				},120000);
+				},5000);
 				
 			});
 		console.log('End of File');
